@@ -2,17 +2,33 @@
 
 ## Description:
 AWS CloudWatch into Zabbix.
-Zabbix External Script.
+Zabbix External Script. For Zabbix Ver2.0 later
 
 ## Getting Started:
+1. Ruby Package Install
+% yum install rubygems rubygem-aws-sdk.noarch
+
+2. This Script Copy to /etc/zabbix/externalscripts/
+% ls -l zabbixsrv:zabbixsrv /etc/zabbix/externalscripts/aws-cw-zabbix.rb
 
 ## Using.
+### Check.
+% ruby ./aws-cw-zabbix.rb {\$ACCESS_KEY} {\$SECRET_ACCESS_KEY} ap-northeast-1 RDS CPUUtilization DBInstanceIdentifier {\$DB_II} Average
+
+###  Zabbix Settings
+1. Setting Host Macro
+{\$ACCESS_KEY}: AWS Access Key
+{\$SECRET_ACCESS_KEY}: AWS Secret Access Key 
+{\$DB_II}: AWS RDS DBInstanceIdentifier
+
+2. Item Key
+aws-cw-zabbix.rb["{\$ACCESS_KEY}", "{\$SECRET_ACCESS_KEY}", "ap-northeast-1", "RDS", "CPUUtilization", "DBInstanceIdentifier", "{\$DB_II}", "Average"]
 
 ## Feedback.
 - https://github.com/m120/cloudwatch-into-zabbix/issues
 
 ## Todo.
--
-
-
+- Refactoring!!!
+- make Zabbix Templates
+- and more..
 

@@ -1,38 +1,5 @@
-#!/usr/bin/env ruby
-## -------------------------------------------------------------
-#
-# CloudWatch Data Getter 
-# 		For Zabbix Ver2.0 later
-# 		- Write by mhori 141125
-#
-# >> Reference << 
-#    Base:
-#        http://dev.classmethod.jp/cloud/aws/zabbix-with-cloudwatch/
-#        http://www.xmisao.com/2014/07/29/ruby-aws-sdk-get-cloudwatch-metrics.html
-#    Metrcs Reference:
-#        http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html
-#
-# >> Install <<
-#  1. ruby package install
-#      $ sudo yum install rubygems rubygem-aws-sdk.noarch
-#
-#  2. this script copy to /etc/zabbix/externalscripts/
-#      $ ls -l zabbixsrv:zabbixsrv /etc/zabbix/externalscripts/CloudWatch.rb
-# 
-# >> Example << 
-# (Terminal)
-#  ruby ./CloudWatch.rb {$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 RDS CPUUtilization DBInstanceIdentifier {$DB_II} Average
-#
-# >> Zabbix settings <<
-#  1. Setting Host Macro
-# 	{$ACCESS_KEY}: AWS Access Key
-#  	{$SECRET_ACCESS_KEY}: AWS Secret Access Key 
-#  	{$DB_II}: AWS RDS DBInstanceIdentifier
-#  2. Item Key:
-#	CloudWatch.rb["{$ACCESS_KEY}", "{$SECRET_ACCESS_KEY}", "ap-northeast-1", "RDS", "CPUUtilization", "DBInstanceIdentifier", "{$DB_II}", "Average"]
-#
-## ------------------------------------------------------------
- 
+#!/usr/bin/ruby
+
 require 'rubygems'
 require 'aws-sdk'
 require 'optparse'
