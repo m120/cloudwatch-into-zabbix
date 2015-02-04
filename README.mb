@@ -13,16 +13,136 @@ Zabbix External Script. For Zabbix Ver2.0 later
 
 ## Using.
 ### Check.
-% ruby ./aws-cw-zabbix.rb {\$ACCESS_KEY} {\$SECRET_ACCESS_KEY} ap-northeast-1 RDS CPUUtilization DBInstanceIdentifier {\$DB_II} Average
+    % ruby ./aws-cw-zabbix.rb {\$ACCESS_KEY} {\$SECRET_ACCESS_KEY} ap-northeast-1 RDS CPUUtilization DBInstanceIdentifier {\$DB_II} Average
 
 ###  Zabbix Settings
 1. Setting Host Macro
 {\$ACCESS_KEY}: AWS Access Key
 {\$SECRET_ACCESS_KEY}: AWS Secret Access Key 
 {\$DB_II}: AWS RDS DBInstanceIdentifier
+{$ELB_NAME}: AWS ELB Name
+{$RDS_STORAGE:} AWS RDS Storage Size
 
 2. Item Key
-aws-cw-zabbix.rb["{\$ACCESS_KEY}", "{\$SECRET_ACCESS_KEY}", "ap-northeast-1", "RDS", "CPUUtilization", "DBInstanceIdentifier", "{\$DB_II}", "Average"]
+    aws-cw-zabbix.rb["{\$ACCESS_KEY}", "{\$SECRET_ACCESS_KEY}", "ap-northeast-1", "RDS", "CPUUtilization", "DBInstanceIdentifier", "{\$DB_II}", "Average"]
+
+## Zabbix Items
+### RDS 
+    RDS-DatabaseConnections
+    Key: aws-cw-zabbix.rb[{$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 RDS DatabaseConnections DBInstanceIdentifier {$DB_II} Average]
+    Type: Numeric (unsigned)
+    Unit: Counts
+    
+    RDS-DiskQueueDepth
+    Key: aws-cw-zabbix.rb[{$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 RDS DiskQueueDepth DBInstanceIdentifier {$DB_II} Average]
+    Type: Numeric (float)
+    Unit: Count
+    
+    RDS-BinLogDiskUsage
+    Key: aws-cw-zabbix.rb[{$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 RDS BinLogDiskUsage DBInstanceIdentifier {$DB_II} Average]
+    Type: Numeric (unsigned)
+    Unit: Bytes
+    
+    RDS-FreeStorageSpace
+    Key: aws-cw-zabbix.rb[{$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 RDS FreeStorageSpace DBInstanceIdentifier {$DB_II} Average]
+    Type: Numeric (unsigned)
+    Unit: Bytes
+    
+    RDS-CPU使用率
+    Key: aws-cw-zabbix.rb[{$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 RDS CPUUtilization DBInstanceIdentifier {$DB_II} Average]
+    Type: Numeric (float)
+    Unit: %
+    
+    RDS-FreeableMemory
+    Key: aws-cw-zabbix.rb[{$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 RDS FreeableMemory DBInstanceIdentifier {$DB_II} Average]
+    Type: Numeric (unsigned)
+    Unit: Bytes
+    
+    RDS-ReplicaLag
+    Key: aws-cw-zabbix.rb[{$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 RDS ReplicaLag DBInstanceIdentifier {$DB_II} Average]
+    Type: Numeric (unsigned)
+    Unit: Secounds
+    
+    RDS-SwapUsage
+    Key: aws-cw-zabbix.rb[{$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 RDS SwapUsage DBInstanceIdentifier {$DB_II} Average]
+    Type: Numeric (unsigned)
+    Unit: Bytes
+    
+    RDS-IOPS(Read)
+    Key: aws-cw-zabbix.rb[{$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 RDS ReadIOPS DBInstanceIdentifier {$DB_II} Average]
+    Type: Numeric (float)
+    Unit: Count/Second
+    
+    RDS-IOPS(Write)
+    Key: aws-cw-zabbix.rb[{$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 RDS WriteIOPS DBInstanceIdentifier {$DB_II} Average]
+    Type: Numeric (float)
+    Unit: Count/Second
+    
+    RDS-Latency(Read)
+    Key: aws-cw-zabbix.rb[{$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 RDS ReadLatency DBInstanceIdentifier {$DB_II} Average]
+    Unit: Type: Numeric (float)
+    Unit: Seconds
+    
+    RDS-Latency(Write)
+    Key: aws-cw-zabbix.rb[{$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 RDS WriteLatency DBInstanceIdentifier {$DB_II} Average]
+    Type: Numeric (float)
+    Unit: Seconds
+    
+    RDS-Throughput(Read)
+    Key: aws-cw-zabbix.rb[{$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 RDS ReadThroughput DBInstanceIdentifier {$DB_II} Average]
+    Type: Numeric (float)
+    Unit: Bytes/Second
+    
+    RDS-Throughput(Write)
+    Key: aws-cw-zabbix.rb[{$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 RDS WriteThroughput DBInstanceIdentifier {$DB_II} Average]
+    Type: Numeric (float)
+    Unit: Bytes/Second
+    
+    RDS-NetworkThroughput(Receive)
+    Key: aws-cw-zabbix.rb[{$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 RDS NetworkReceiveThroughput DBInstanceIdentifier {$DB_II} Average]
+    Type: Numeric (float)
+    Unit: Bytes
+    
+    RDS-NetworkThroughput(Transmit)
+    Key: aws-cw-zabbix.rb[{$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 RDS NetworkTransmitThroughput DBInstanceIdentifier {$DB_II} Average]
+    Type: Numeric (float)
+    Unit: Bytes
+
+### ELB
+    ELB-HealthyHostCount
+    Key: aws-cw-zabbix.rb[{$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 ELB HealthyHostCount LoadBalancerName {$ELB_NAME} Average]
+    Type: Numeric (unsigned)
+    Unit: Average
+    
+    ELB-UnHealthyHostCount
+    Key: aws-cw-zabbix.rb[{$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 ELB UnHealthyHostCount LoadBalancerName {$ELB_NAME} Average]
+    Type: Numeric (unsigned)
+    Unit: Average
+    
+    ELB-RequestCount
+    Key: aws-cw-zabbix.rb[{$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 ELB RequestCount LoadBalancerName {$ELB_NAME} Average]
+    Type: Numeric (unsigned)
+    Unit: Counts
+    
+    ELB-Latency
+    Key: aws-cw-zabbix.rb[{$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 ELB Latency LoadBalancerName {$ELB_NAME} Average]
+    Type: Numeric (float)
+    Unit: Counts
+    
+    ELB-BackendConnectionErrors
+    Key: aws-cw-zabbix.rb[{$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 ELB BackendConnectionErrors LoadBalancerName {$ELB_NAME} Average]
+    Type: Numeric (unsigned)
+    Unit: Counts
+    
+    ELB-SurgeQueueLength
+    Key: aws-cw-zabbix.rb[{$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 ELB SurgeQueueLength LoadBalancerName {$ELB_NAME} Average]
+    Type: Numeric (unsigned)
+    Unit: Counts
+    
+    ELB-SpilloverCount
+    Key: aws-cw-zabbix.rb[{$ACCESS_KEY} {$SECRET_ACCESS_KEY} ap-northeast-1 ELB SpilloverCount LoadBalancerName {$ELB_NAME} Average]
+    Type: Numeric (unsigned)
+    Unit: Counts
 
 ## Feedback.
 - https://github.com/m120/cloudwatch-into-zabbix/issues
